@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-                Schema::create('jadwals', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('dosen_id')->constrained('dosens')->cascadeOnDelete();
-
-            $table->foreignId('mata_kuliah_id')->constrained('mata_kuliahs')->cascadeOnDelete();
-
-            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
-
-            $table->enum('hari', [
+        Schema::create('jadwals', function (Blueprint $table) {
+            $table  ->id();
+            $table  ->foreignId('dosen_id')
+                    ->constrained('dosens')
+                    ->cascadeOnDelete();
+            $table  ->foreignId('mata_kuliah_id')
+                    ->constrained('mata_kuliahs')
+                    ->cascadeOnDelete();
+            $table  ->foreignId('kelas_id')
+                    ->constrained('kelas')
+                    ->cascadeOnDelete();
+            $table  ->enum('hari', [
                 'Senin',
                 'Selasa',
                 'Rabu',
