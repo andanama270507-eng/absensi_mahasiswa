@@ -12,7 +12,7 @@ class Dosen extends Model
         'nidn',
         'nama',
         'email',
-        'no_telp'
+        'no_telp',
     ];
 
     public function jadwals()

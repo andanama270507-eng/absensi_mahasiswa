@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Absensi;
+use App\Models\Mahasiswa;
+use App\Models\Pertemuan;
 
 class AbsensiController extends Controller
 {
@@ -11,8 +14,12 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $absensi = Absensi::all();
-        return view('absensi.index', compact('absensi'));
+        $absensis = Absensi::with([
+            'mahasiswa',
+            'pertemuan'
+        ])->latest()->get();
+
+        return view('absensi.index', compact('absensis'));
     }
 
     /**
@@ -20,7 +27,13 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        return view('absensi.create');
+        $mahasiswas = Mahasiswa::orderBy('nama')->get();
+        $pertemuans = Pertemuan::orderBy('tanggal')->get();
+
+        return view('absensi.create', compact(
+            'mahasiswas',
+            'pertemuans'
+        ));
     }
 
     /**
@@ -29,15 +42,19 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'pertemuan_id' => 'required|exists:pertemuans,id',
             'mahasiswa_id' => 'required|exists:mahasiswas,id',
+            'pertemuan_id' => 'required|exists:pertemuans,id',
             'status' => 'required|in:Hadir,Izin,Sakit,Alpha',
         ]);
 
-        Absensi::create($request->all());
+        Absensi::create([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            'pertemuan_id' => $request->pertemuan_id,
+            'status' => $request->status,
+        ]);
 
         return redirect()->route('absensi.index')
-                         ->with('success', 'Absensi berhasil ditambahkan.');
+            ->with('success', 'Data absensi berhasil ditambahkan.');
     }
 
     /**
@@ -45,7 +62,11 @@ class AbsensiController extends Controller
      */
     public function show($id)
     {
-        $absensi = Absensi::findOrFail($id);
+        $absensi = Absensi::with([
+            'mahasiswa',
+            'pertemuan'
+        ])->findOrFail($id);
+
         return view('absensi.show', compact('absensi'));
     }
 
@@ -55,7 +76,16 @@ class AbsensiController extends Controller
     public function edit($id)
     {
         $absensi = Absensi::findOrFail($id);
-        return view('absensi.edit', compact('absensi'));
+
+        $mahasiswas = Mahasiswa::orderBy('nama')->get();
+
+        $pertemuans = Pertemuan::orderBy('tanggal')->get();
+
+        return view('absensi.edit', compact(
+            'absensi',
+            'mahasiswas',
+            'pertemuans'
+        ));
     }
 
     /**
@@ -64,16 +94,21 @@ class AbsensiController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'pertemuan_id' => 'required|exists:pertemuans,id',
             'mahasiswa_id' => 'required|exists:mahasiswas,id',
+            'pertemuan_id' => 'required|exists:pertemuans,id',
             'status' => 'required|in:Hadir,Izin,Sakit,Alpha',
         ]);
 
         $absensi = Absensi::findOrFail($id);
-        $absensi->update($request->all());
+
+        $absensi->update([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            'pertemuan_id' => $request->pertemuan_id,
+            'status' => $request->status,
+        ]);
 
         return redirect()->route('absensi.index')
-                         ->with('success', 'Absensi berhasil diperbarui.');
+            ->with('success', 'Data absensi berhasil diperbarui.');
     }
 
     /**
@@ -82,9 +117,10 @@ class AbsensiController extends Controller
     public function destroy($id)
     {
         $absensi = Absensi::findOrFail($id);
+
         $absensi->delete();
 
         return redirect()->route('absensi.index')
-                         ->with('success', 'Absensi berhasil dihapus.');
+            ->with('success', 'Data absensi berhasil dihapus.');
     }
 }
