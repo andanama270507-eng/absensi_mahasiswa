@@ -9,16 +9,11 @@ class Dosen extends Model
     protected $table = 'dosens';
 
     protected $fillable = [
+        'nidn',
         'nama',
         'email',
-        'no_telp',
-        'mata_kuliah_id',
+        'no_telp'
     ];
-
-    public function mataKuliah()
-    {
-        return $this->belongsTo(MataKuliah::class, 'mata_kuliah_id');
-    }
 
     public function jadwals()
     {

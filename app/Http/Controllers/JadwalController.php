@@ -11,7 +11,8 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        //
+        $jadwals = Jadwal::with(['dosen', 'kelas'])->get();
+        return view('jadwal.index', compact('jadwals'));
     }
 
     /**
@@ -19,7 +20,14 @@ class JadwalController extends Controller
      */
     public function create()
     {
-        //
+        jadwal::create([
+            'dosen_id' => $request->dosen_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
+            'kelas_id' => $request->kelas_id,
+            'hari' => $request->hari,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai
+        ]);
     }
 
     /**

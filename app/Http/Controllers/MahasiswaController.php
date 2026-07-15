@@ -11,7 +11,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        //
+        $mahasiswa = Mahasiswa::with('absensi')->get();
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 
     /**
@@ -19,7 +20,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        $kelas = Kelas::all();
+        return view('mahasiswa.create', compact('kelas'));
     }
 
     /**
@@ -27,23 +29,36 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Mahasiswa::create([
+            'kelas_id' => $request->kelas_id,
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp,
+            'jurusan' => $request->jurusan
+        ]);
+
+        return redirect()->route('mahasiswa.index')
+                         ->with('success', 'Mahasiswa berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $mahasiswa = Mahasiswa::with('absensi')->findOrFail($id);
+        return view('mahasiswa.show', compact('mahasiswa'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $kelas = Kelas::all();
+        return view('mahasiswa.edit', compact('mahasiswa', 'kelas'));
     }
 
     /**
@@ -51,7 +66,18 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->update([
+            'kelas_id' => $request->kelas_id,
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp,
+            'jurusan' => $request->jurusan
+        ]);
+
+        return redirect()->route('/mahasiswa')
+                         ->with('success', 'Mahasiswa berhasil diperbarui.');
     }
 
     /**
@@ -59,6 +85,10 @@ class MahasiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->delete();
+
+        return redirect()->route('mahasiswa.index')
+                         ->with('success', 'Mahasiswa berhasil dihapus.');
     }
 }

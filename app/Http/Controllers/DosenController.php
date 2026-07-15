@@ -11,7 +11,8 @@ class DosenController extends Controller
      */
     public function index()
     {
-        //
+       $dosens = Dosen::with('mataKuliah')->get();
+        return view('dosen.index', compact('dosens'));
     }
 
     /**
@@ -19,7 +20,7 @@ class DosenController extends Controller
      */
     public function create()
     {
-        //
+        return view('dosen.create');
     }
 
     /**
@@ -27,7 +28,17 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nidn' => 'required|unique:dosens,nidn',
+            'nama' => 'required',
+            'email' => 'required|email|unique:dosens,email',
+            'no_telp' => 'nullable|numeric',
+        ]);
+
+        Dosen::create($request->all());
+
+        return redirect()->route('dosen.index')
+                         ->with('success', 'Dosen berhasil ditambahkan.');
     }
 
     /**

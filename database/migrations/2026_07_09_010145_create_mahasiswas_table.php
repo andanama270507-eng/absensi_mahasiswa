@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
+             $table->foreignId('id_kelas')
+                    ->constrained('kelas')
+                    ->onDelete('cascade');
             $table->string('nim')->unique();
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('no_telp')->nullable();
             $table->string('jurusan');
-            $table->string('semester');
             $table->timestamps();
         });
     }

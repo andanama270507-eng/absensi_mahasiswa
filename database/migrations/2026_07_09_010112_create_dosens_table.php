@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('mata_kuliah_id')
+                ->constrained('mata_kuliahs')
+                ->onDelete('cascade');
+                
             $table->string('nidn')->unique();
             $table->string('nama');
             $table->string('email')->unique();
