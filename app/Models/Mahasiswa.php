@@ -9,14 +9,22 @@ class Mahasiswa extends Model
     protected $table = 'mahasiswas';
 
     protected $fillable = [
+        'kelas_id',
+        'nim',
         'nama',
         'email',
         'no_telp',
-        'kelas_id',
+        'jurusan',
+        'semester',
     ];
 
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'mahasiswa_id');
     }
 }

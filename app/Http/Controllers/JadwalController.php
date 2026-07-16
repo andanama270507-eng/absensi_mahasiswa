@@ -29,9 +29,10 @@ class JadwalController extends Controller
      */
     public function create()
     {
+        // Perbaikan: kolom dosens adalah "nama", bukan "nama_dosen"
         $dosens = Dosen::orderBy('nama')->get();
-        $mataKuliahs = MataKuliah::orderBy('nama')->get();
-        $kelas = Kelas::orderBy('nama')->get();
+        $mataKuliahs = MataKuliah::orderBy('nama_mk')->get();
+        $kelas = Kelas::orderBy('nama_kelas')->get();
 
         return view('jadwal.create', compact(
             'dosens',
@@ -46,21 +47,21 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dosen_id'        => 'required|exists:dosens,id',
-            'mata_kuliah_id'  => 'required|exists:mata_kuliahs,id',
-            'kelas_id'        => 'required|exists:kelas,id',
-            'hari'            => 'required',
-            'jam_mulai'       => 'required',
-            'jam_selesai'     => 'required',
+            'dosen_id'       => 'required|exists:dosens,id',
+            'mata_kuliah_id' => 'required|exists:mata_kuliahs,id',
+            'kelas_id'       => 'required|exists:kelas,id',
+            'hari'           => 'required',
+            'jam_mulai'      => 'required',
+            'jam_selesai'    => 'required',
         ]);
 
         Jadwal::create([
-            'dosen_id'        => $request->dosen_id,
-            'mata_kuliah_id'  => $request->mata_kuliah_id,
-            'kelas_id'        => $request->kelas_id,
-            'hari'            => $request->hari,
-            'jam_mulai'       => $request->jam_mulai,
-            'jam_selesai'     => $request->jam_selesai,
+            'dosen_id'       => $request->dosen_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
+            'kelas_id'       => $request->kelas_id,
+            'hari'           => $request->hari,
+            'jam_mulai'      => $request->jam_mulai,
+            'jam_selesai'    => $request->jam_selesai,
         ]);
 
         return redirect()->route('jadwal.index')
@@ -88,9 +89,10 @@ class JadwalController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
 
+        // Perbaikan: kolom dosens adalah "nama"
         $dosens = Dosen::orderBy('nama')->get();
-        $mataKuliahs = MataKuliah::orderBy('nama')->get();
-        $kelas = Kelas::orderBy('nama')->get();
+        $mataKuliahs = MataKuliah::orderBy('nama_mk')->get();
+        $kelas = Kelas::orderBy('nama_kelas')->get();
 
         return view('jadwal.edit', compact(
             'jadwal',
@@ -106,23 +108,23 @@ class JadwalController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'dosen_id'        => 'required|exists:dosens,id',
-            'mata_kuliah_id'  => 'required|exists:mata_kuliahs,id',
-            'kelas_id'        => 'required|exists:kelas,id',
-            'hari'            => 'required',
-            'jam_mulai'       => 'required',
-            'jam_selesai'     => 'required',
+            'dosen_id'       => 'required|exists:dosens,id',
+            'mata_kuliah_id' => 'required|exists:mata_kuliahs,id',
+            'kelas_id'       => 'required|exists:kelas,id',
+            'hari'           => 'required',
+            'jam_mulai'      => 'required',
+            'jam_selesai'    => 'required',
         ]);
 
         $jadwal = Jadwal::findOrFail($id);
 
         $jadwal->update([
-            'dosen_id'        => $request->dosen_id,
-            'mata_kuliah_id'  => $request->mata_kuliah_id,
-            'kelas_id'        => $request->kelas_id,
-            'hari'            => $request->hari,
-            'jam_mulai'       => $request->jam_mulai,
-            'jam_selesai'     => $request->jam_selesai,
+            'dosen_id'       => $request->dosen_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
+            'kelas_id'       => $request->kelas_id,
+            'hari'           => $request->hari,
+            'jam_mulai'      => $request->jam_mulai,
+            'jam_selesai'    => $request->jam_selesai,
         ]);
 
         return redirect()->route('jadwal.index')

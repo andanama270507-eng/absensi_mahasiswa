@@ -10,6 +10,7 @@ class Pertemuan extends Model
 
     protected $fillable = [
         'jadwal_id',
+        'pertemuan_ke',
         'tanggal',
         'materi',
     ];

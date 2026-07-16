@@ -6,58 +6,81 @@
 
 <div class="container">
 
-<div class="card">
+    <div class="card">
 
-<div class="card-header">
-<h3>Tambah Pertemuan</h3>
-</div>
+        <div class="card-header">
+            <h3>Tambah Pertemuan</h3>
+        </div>
 
-<div class="card-body">
+        <div class="card-body">
 
-<form action="{{ route('pertemuan.store') }}" method="POST">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-@csrf
+            <form action="{{ route('pertemuan.store') }}" method="POST">
 
-<div class="mb-3">
-<label>Jadwal</label>
+                @csrf
 
-<select name="jadwal_id" class="form-control">
+                <div class="mb-3">
+                    <label>Jadwal</label>
+                    <select name="jadwal_id" class="form-control" required>
+                        <option value="">-- Pilih Jadwal --</option>
 
-@foreach($jadwal as $j)
+                        @foreach($jadwal as $j)
+                            <option value="{{ $j->id }}">
+                                Jadwal {{ $j->id }}
+                            </option>
+                        @endforeach
 
-<option value="{{ $j->id }}">
-Jadwal {{ $j->id }}
-</option>
+                    </select>
+                </div>
 
-@endforeach
+                <div class="mb-3">
+                    <label>Pertemuan Ke</label>
+                    <input type="number"
+                           name="pertemuan_ke"
+                           class="form-control"
+                           min="1"
+                           required>
+                </div>
 
-</select>
+                <div class="mb-3">
+                    <label>Tanggal</label>
+                    <input type="date"
+                           name="tanggal"
+                           class="form-control"
+                           required>
+                </div>
 
-</div>
+                <div class="mb-3">
+                    <label>Materi</label>
+                    <textarea
+                        name="materi"
+                        class="form-control"
+                        rows="4"
+                        required>{{ old('materi') }}</textarea>
+                </div>
 
-<div class="mb-3">
-<label>Tanggal</label>
-<input type="date" name="tanggal" class="form-control">
-</div>
+                <button type="submit" class="btn btn-primary">
+                    Simpan
+                </button>
 
-<div class="mb-3">
-<label>Materi</label>
-<input type="text" name="materi" class="form-control">
-</div>
+                <a href="{{ route('pertemuan.index') }}" class="btn btn-secondary">
+                    Kembali
+                </a>
 
-<button class="btn btn-primary">
-Simpan
-</button>
+            </form>
 
-<a href="{{ route('pertemuan.index') }}" class="btn btn-secondary">
-Kembali
-</a>
+        </div>
 
-</form>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 

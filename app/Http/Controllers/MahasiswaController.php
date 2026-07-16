@@ -30,19 +30,30 @@ class MahasiswaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Mahasiswa::create([
-            'kelas_id' => $request->kelas_id,
-            'nim'       => $request->nim,
-            'nama'      => $request->nama,
-            'email'     => $request->email,
-            'no_telp'   => $request->no_telp,
-            'jurusan'   => $request->jurusan,
-        ]);
+{
+    $request->validate([
+        'kelas_id'  => 'required',
+        'nim'       => 'required',
+        'nama'      => 'required',
+        'email'     => 'required|email',
+        'no_telp'   => 'required',
+        'jurusan'   => 'required',
+        'semester'  => 'required',
+    ]);
 
-        return redirect()->route('mahasiswa.index')
-            ->with('success', 'Mahasiswa berhasil ditambahkan.');
-    }
+    Mahasiswa::create([
+        'kelas_id'  => $request->kelas_id,
+        'nim'       => $request->nim,
+        'nama'      => $request->nama,
+        'email'     => $request->email,
+        'no_telp'   => $request->no_telp,
+        'jurusan'   => $request->jurusan,
+        'semester'  => $request->semester,
+    ]);
+
+    return redirect()->route('mahasiswa.index')
+        ->with('success', 'Mahasiswa berhasil ditambahkan.');
+}
 
     /**
      * Display the specified resource.
