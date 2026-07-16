@@ -22,6 +22,17 @@
 
 <div class="mb-3">
 
+<label>NIDN</label>
+
+<input type="text"
+name="nidn"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
 <label>Nama</label>
 
 <input type="text"

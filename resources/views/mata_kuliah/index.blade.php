@@ -28,6 +28,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th width="60">No</th>
+                        <th>Kode</th>
                         <th>Nama Mata Kuliah</th>
                         <th width="100">SKS</th>
                         <th width="220">Aksi</th>
@@ -42,7 +43,9 @@
 
                         <td>{{ $loop->iteration }}</td>
 
-                        <td>{{ $mk->nama_mata_kuliah }}</td>
+                        <td>{{ $mk->kode_mk }}</td>
+
+                        <td>{{ $mk->nama_mk }}</td>
 
                         <td>{{ $mk->sks }}</td>
 

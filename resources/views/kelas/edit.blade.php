@@ -6,52 +6,64 @@
 
 <div class="container">
 
-<div class="card shadow">
+    <div class="card shadow">
 
-<div class="card-header bg-warning">
+        <div class="card-header bg-warning">
 
-<h4>Edit Kelas</h4>
+            <h4>Edit Kelas</h4>
 
-</div>
+            </div>
 
-<div class="card-body">
+            <div class="card-body">
 
-<form action="{{ route('kelas.update',$kls->id) }}"
-method="POST">
+            <form action="{{ route('kelas.update',$kelas->id) }}"
+            method="POST">
 
-@csrf
-@method('PUT')
+            @csrf
+            @method('PUT')
 
-<div class="mb-3">
+            <div class="mb-3">
 
-<label>Nama Kelas</label>
+            <label>Nama Kelas</label>
 
-<input type="text"
-name="nama"
-class="form-control"
-value="{{ old('nama',$kls->nama) }}"
-required>
+            <input type="text"
+            name="nama_kelas"
+            class="form-control"
+            value="{{ old('nama_kelas',$kelas->nama_kelas) }}"
+            required>
 
-</div>
+            </div>
 
-<a href="{{ route('kelas.index') }}"
-class="btn btn-secondary">
+            <div class="mb-3">
 
-Kembali
+            <label>Ruangan</label>
 
-</a>
+            <input type="text"
+            name="ruangan"
+            class="form-control"
+            value="{{ old('ruangan',$kelas->ruangan) }}"
+            required>
 
-<button class="btn btn-warning">
+            </div>
 
-Update
+            <a href="{{ route('kelas.index') }}"
+            class="btn btn-secondary">
 
-</button>
+            Kembali
 
-</form>
+            </a>
 
-</div>
+            <button class="btn btn-warning">
 
-</div>
+            Update
+
+            </button>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </div>
 

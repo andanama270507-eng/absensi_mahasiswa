@@ -16,8 +16,13 @@
             <table class="table table-bordered">
 
                 <tr>
+                    <th width="200">Kode Mata Kuliah</th>
+                    <td>{{ $mataKuliah->kode_mk }}</td>
+                </tr>
+
+                <tr>
                     <th width="200">Nama Mata Kuliah</th>
-                    <td>{{ $mataKuliah->nama_mata_kuliah }}</td>
+                    <td>{{ $mataKuliah->nama_mk }}</td>
                 </tr>
 
                 <tr>

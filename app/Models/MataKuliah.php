@@ -9,7 +9,8 @@ class MataKuliah extends Model
     protected $table = 'mata_kuliahs';
 
     protected $fillable = [
-        'nama_mata_kuliah',
+        'kode_mk',
+        'nama_mk',
         'sks',
     ];
 

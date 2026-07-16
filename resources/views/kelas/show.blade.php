@@ -22,7 +22,15 @@
 
 <th width="220">Nama Kelas</th>
 
-<td>{{ $kls->nama }}</td>
+<td>{{ $kelas->nama_kelas }}</td>
+
+</tr>
+
+<tr>
+
+<th>Ruangan</th>
+
+<td>{{ $kelas->ruangan }}</td>
 
 </tr>
 
@@ -30,7 +38,7 @@
 
 <th>Dibuat</th>
 
-<td>{{ $kls->created_at }}</td>
+<td>{{ $kelas->created_at }}</td>
 
 </tr>
 
@@ -38,7 +46,7 @@
 
 <th>Diupdate</th>
 
-<td>{{ $kls->updated_at }}</td>
+<td>{{ $kelas->updated_at }}</td>
 
 </tr>
 
@@ -51,7 +59,7 @@ Kembali
 
 </a>
 
-<a href="{{ route('kelas.edit',$kls->id) }}"
+<a href="{{ route('kelas.edit',$kelas->id) }}"
 class="btn btn-warning">
 
 Edit

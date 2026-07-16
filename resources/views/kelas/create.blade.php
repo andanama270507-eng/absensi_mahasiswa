@@ -25,7 +25,18 @@
 <label>Nama Kelas</label>
 
 <input type="text"
-name="nama"
+name="nama_kelas"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label>Ruangan</label>
+
+<input type="text"
+name="ruangan"
 class="form-control"
 required>
 

@@ -39,6 +39,7 @@
 
                         <th>No</th>
                         <th>Nama Kelas</th>
+                        <th>Ruangan</th>
                         <th width="220">Aksi</th>
 
                     </tr>
@@ -53,7 +54,9 @@
 
                         <td>{{ $key+1 }}</td>
 
-                        <td>{{ $kls->nama }}</td>
+                        <td>{{ $kls->nama_kelas }}</td>
+
+                        <td>{{ $kls->ruangan }}</td>
 
                         <td>
 

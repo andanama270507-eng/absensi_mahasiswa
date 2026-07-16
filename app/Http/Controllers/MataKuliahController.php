@@ -30,12 +30,14 @@ class MataKuliahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_mata_kuliah' => 'required',
+            'kode_mk' => 'required|unique:mata_kuliahs,kode_mk',
+            'nama_mk' => 'required',
             'sks' => 'required|integer',
         ]);
 
         MataKuliah::create([
-            'nama_mata_kuliah' => $request->nama_mata_kuliah,
+            'kode_mk' => $request->kode_mk,
+            'nama_mk' => $request->nama_mk,
             'sks' => $request->sks,
         ]);
 
@@ -67,14 +69,16 @@ class MataKuliahController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama_mata_kuliah' => 'required',
+            'kode_mk' => 'required|unique:mata_kuliahs,kode_mk,' . $id,
+            'nama_mk' => 'required',
             'sks' => 'required|integer',
         ]);
 
         $mataKuliah = MataKuliah::findOrFail($id);
 
         $mataKuliah->update([
-            'nama_mata_kuliah' => $request->nama_mata_kuliah,
+            'kode_mk' => $request->kode_mk,
+            'nama_mk' => $request->nama_mk,
             'sks' => $request->sks,
         ]);
 
